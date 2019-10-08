@@ -34,11 +34,25 @@ class Matrix {
         var result = null;
         // ensure multiplication is valid
         if (rhs instanceof Matrix && this.columns === rhs.rows) {
-            // implement matrix multiplication here!
+            //implement matrix multiplication here!
+            var i,j,m,row_num, col_num, tot_sum = 0;
+            result = new Matrix(this.data.length, rhs.data[0].length);
+            for(i = 0; i < rhs.data[0].length; i++) { // loop through rhs rows
+                for(j = 0; j < this.data.length; j++) { // loop through this columns
+                    tot_sum = 0;
+                    for(m = 0; m < rhs.data.length; m++) { // loop through rhs[i][m] and this[j][m]
+                        row_num = rhs.data[m][i];
+                        col_num = this.data[j][m];
+                        tot_sum += row_num * col_num;
+                        result.values[j][i] = tot_sum;
+                    } 
+                }
+            }
         }
         else {
             console.log("could not multiply - row/column mismatch");
         }
+        console.log(result.values);
         return result;
     }
 }
